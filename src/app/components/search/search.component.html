@@ -1,0 +1,130 @@
+<style>
+        @import url('https://fonts.googleapis.com/css?family=Bebas+Neue&display=swap');
+        </style>
+<div class="d-flex justify-content-center" style="font-size: 4vw;font-family: 'Bebas Neue', cursive;">Search</div>
+<mat-radio-group aria-label="Select an option" [(ngModel)]="option">
+        <mat-radio-button value="1">Song</mat-radio-button>
+        <mat-radio-button value="2">Artist</mat-radio-button>
+        <mat-radio-button value="3">Album</mat-radio-button>
+      </mat-radio-group>
+<mat-form-field class="example-full-width" style="padding-top: 20px;" (keydown.enter)="submit()" >
+        <button (click)="submit()" mat-fab style="position: relative;float: right;top: 20px;"><i class="fas fa-search"></i></button>
+        <input  matInput placeholder="Enter Song, Album or Artist" [(ngModel)]="search">
+       
+      </mat-form-field>
+  <!---Song Table-->   
+<div class="mat-elevation-z8" *ngIf="song"> 
+  <mat-form-field>
+          <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+        </mat-form-field>
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+<!--- Note that these columns can be defined in any order.
+    The actual rendered columns are set as a property on the row definition" -->
+
+<!-- Position Column -->
+<ng-container matColumnDef="sname">
+<th mat-header-cell *matHeaderCellDef> Song Name </th>
+<td mat-cell *matCellDef="let song"> {{song.name}} </td>
+</ng-container>
+
+<ng-container matColumnDef="alname">
+  <th mat-header-cell *matHeaderCellDef> Album Name </th>
+  <td mat-cell *matCellDef="let song"> {{song.albumName}} </td>
+  </ng-container>
+
+<!-- Name Column -->
+<ng-container matColumnDef="genre">
+<th mat-header-cell *matHeaderCellDef> Genre </th>
+<td mat-cell *matCellDef="let song"> {{song.genre}} </td>
+</ng-container>
+
+<!-- Weight Column -->
+<ng-container matColumnDef="prod">
+<th mat-header-cell *matHeaderCellDef> Music Producer </th>
+<td mat-cell *matCellDef="let song"> {{song.musicProducer}} </td>
+</ng-container>
+
+<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+<tr mat-row *matRowDef="let row; columns: displayedColumns;" ></tr>
+</table>
+<mat-paginator [pageSizeOptions]="[50, 10, 30, 100]" showFirstLastButtons></mat-paginator>
+</div>
+
+<!---song Table ends-->
+
+<!---Artist Table-->   
+<div class="mat-elevation-z8" *ngIf="artist"> 
+        <mat-form-field>
+                <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+              </mat-form-field>
+    <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+    
+    <!--- Note that these columns can be defined in any order.
+          The actual rendered columns are set as a property on the row definition" -->
+    
+    <!-- Position Column -->
+    <ng-container matColumnDef="aname">
+      <th mat-header-cell *matHeaderCellDef> Artist Name </th>
+      <td mat-cell *matCellDef="let artist"> {{artist.name}} </td>
+    </ng-container>
+    
+    <!-- Name Column -->
+    <ng-container matColumnDef="country">
+      <th mat-header-cell *matHeaderCellDef> Country </th>
+      <td mat-cell *matCellDef="let artist"> {{artist.country}} </td>
+    </ng-container>
+    
+    <!-- Weight Column -->
+    <ng-container matColumnDef="ncopies">
+      <th mat-header-cell *matHeaderCellDef> No Of Copies </th>
+      <td mat-cell *matCellDef="let artist"> {{artist.numberCopies}} </td>
+    </ng-container>
+    
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selectArtist(row);"></tr>
+    </table>
+    <mat-paginator [pageSizeOptions]="[50, 10, 30, 100]" showFirstLastButtons></mat-paginator>
+    </div>
+    
+    <!---Artist Table ends-->
+
+     <!---Album Table-->   
+  <div class="mat-elevation-z8" *ngIf="album"> 
+    <mat-form-field>
+            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+          </mat-form-field>
+<table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+<!--- Note that these columns can be defined in any order.
+      The actual rendered columns are set as a property on the row definition" -->
+
+<!-- Position Column -->
+<ng-container matColumnDef="aname">
+  <th mat-header-cell *matHeaderCellDef> Album Name </th>
+  <td mat-cell *matCellDef="let album"> {{album.name}} </td>
+</ng-container>
+
+<!-- Name Column -->
+<ng-container matColumnDef="arname">
+  <th mat-header-cell *matHeaderCellDef> Artist Name </th>
+  <td mat-cell *matCellDef="let album"> {{album.artistName}} </td>
+</ng-container>
+
+<!-- Weight Column -->
+<ng-container matColumnDef="rlabel">
+  <th mat-header-cell *matHeaderCellDef> Record Label </th>
+  <td mat-cell *matCellDef="let album"> {{album.recordLabel}} </td>
+</ng-container>
+<ng-container matColumnDef="nstreams">
+    <th mat-header-cell *matHeaderCellDef> No. Of Streams </th>
+    <td mat-cell *matCellDef="let album"> {{album.noOfStreams}} </td>
+  </ng-container>
+
+<tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+<tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selectAlbum(row);"></tr>
+</table>
+<mat-paginator [pageSizeOptions]="[50, 10, 30, 100]" showFirstLastButtons></mat-paginator>
+</div>
+
+<!---Album Table ends-->

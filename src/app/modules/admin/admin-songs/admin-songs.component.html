@@ -1,0 +1,42 @@
+  <!---Song Table-->   
+  <div style="position: relative;top:70px;" class="mat-elevation-z8"> 
+    <mat-form-field>
+            <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+          </mat-form-field>
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+  
+  <!--- Note that these columns can be defined in any order.
+      The actual rendered columns are set as a property on the row definition" -->
+  
+  <!-- Position Column -->
+  <ng-container matColumnDef="sname">
+  <th mat-header-cell *matHeaderCellDef> Song Name </th>
+  <td mat-cell *matCellDef="let song"> {{song.name}} </td>
+  </ng-container>
+  
+  <ng-container matColumnDef="alname">
+    <th mat-header-cell *matHeaderCellDef> Album Name </th>
+    <td mat-cell *matCellDef="let song"> {{song.albumName}} </td>
+    </ng-container>
+  
+  <!-- Name Column -->
+  <ng-container matColumnDef="genre">
+  <th mat-header-cell *matHeaderCellDef> Genre </th>
+  <td mat-cell *matCellDef="let song"> {{song.genre}} </td>
+  </ng-container>
+  
+  <!-- Weight Column -->
+  <ng-container matColumnDef="prod">
+  <th mat-header-cell *matHeaderCellDef> Music Producer </th>
+  <td mat-cell *matCellDef="let song"> {{song.musicProducer}} </td>
+  </ng-container>
+  
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;" ></tr>
+  </table>
+  <mat-paginator [pageSizeOptions]="[50, 10, 30, 100]" showFirstLastButtons></mat-paginator>
+  <button style="margin-left: 30px;border: none;" (click)="show=true"><img src ="assets/add.png" style="width: 50px;height: 50px;background-color: transparent;">Add Songs</button>
+
+</div>
+  
+  <!---song Table ends-->
