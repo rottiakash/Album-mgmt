@@ -12,10 +12,13 @@ export class HomeComponent implements OnInit {
   constructor(public afAuth: AngularFireAuth,private router:Router) { }
   show = false;
   name:String;
+  admin = false;
   ngOnInit() {
     this.afAuth.user.subscribe(data=>{
       if(data==null)
         this.show = true;
+      if(data.email=="albumadmin@gmail.com")
+        this.admin = true
     })
   }
   login() {

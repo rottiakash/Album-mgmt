@@ -1,7 +1,8 @@
 <script src="bower_components/angular-country-picker/country-picker.js"></script>
 <script src="node_modules/angular-country-picker/country-picker.js"></script>
 <!---Artist Table-->   
-<div style="position: relative;top:70px;" class="mat-elevation-z8"> 
+<div style="position: relative;top:40px;" class="mat-elevation-z8"> 
+  <h1>Artists:</h1>
     <mat-form-field>
             <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
           </mat-form-field>
@@ -27,9 +28,12 @@
   <th mat-header-cell *matHeaderCellDef> No Of Copies </th>
   <td mat-cell *matCellDef="let artist"> {{artist.numberCopies}} </td>
 </ng-container>
-
+<ng-container matColumnDef="del">
+    <th mat-header-cell *matHeaderCellDef> Delete </th>
+    <td mat-cell *matCellDef="let artist"> <img src="assets/del.png" style="width:50px;cursor: pointer;" (click)="delete(artist)"> </td>
+  </ng-container>
 <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-<tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selectArtist(row);"></tr>
+<tr mat-row *matRowDef="let row; columns: displayedColumns;" ></tr>
 </table>
 <mat-paginator [pageSizeOptions]="[50, 10, 30, 100]" showFirstLastButtons></mat-paginator>
 <button style="margin-left: 30px;border: none;" (click)="show=true"><img src ="assets/add.png" style="width: 50px;height: 50px;background-color: transparent;">Add Artist</button> 
@@ -41,6 +45,7 @@
 <!---Artist form-->
 
 <div style="position: relative;top:100px" *ngIf="show">
+  <h1>Add Artist</h1>
     <form action="/action_page.php">
       <label for="fname">Name</label>
       <input type="text" id="fname" name="firstname" placeholder="Artist Name" [(ngModel)]="aname" [ngModelOptions]="{standalone: true}">
@@ -48,6 +53,7 @@
       <label for="lname">No of copies</label>
       <input type="text" id="lname" name="lastname" placeholder="No of copies" [(ngModel)]="copies" [ngModelOptions]="{standalone: true}">
       <select id="country" name="country" [(ngModel)]="ctry">
+        <option value="default">Select Country</option>
         <option *ngFor="let country of clist" value="{{country}}">{{country}}</option>
       </select>
       <input type="button" (click)="submit()" value="Submit">

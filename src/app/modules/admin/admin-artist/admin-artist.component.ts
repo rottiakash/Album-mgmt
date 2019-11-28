@@ -14,7 +14,7 @@ import { Country } from 'src/app/Models/Country';
 export class AdminArtistComponent implements OnInit {
   aname:any;
   copies:any;
-  ctry:any;
+  ctry:any = "default";
   show = false;
   dataSource : any;
   clist: String[] = [];
@@ -24,7 +24,7 @@ displayedColumns: string[];
   constructor(private http:HttpClient,private router:Router) { }
 
   ngOnInit() {
-    this.displayedColumns = ['aname','country','ncopies'];
+    this.displayedColumns = ['aname','country','ncopies','del'];
     this.http.get<Artist[]>('http://127.0.0.1:5000/getArtists').subscribe(data=>{
       this.dataSource = new MatTableDataSource(data);
       this.dataSource.paginator = this.paginator;
@@ -43,6 +43,15 @@ displayedColumns: string[];
     this.http.get("http://127.0.0.1:5000/insertArtist/"+this.aname+"/"+this.ctry+"/"+this.copies, {observe:'response'}).subscribe(response=>{
       window.alert("Artist Added Successfully");
       this.router.navigateByUrl('/admin/artist')
+      this.show = false;
+    })
+  }
+
+  delete(artist)
+  {
+    console.log(artist.name);
+    this.http.get("http://127.0.0.1:5000/deleteArtist/"+artist.aid,{observe : 'response'}).subscribe(response=>{
+      window.alert(artist.name+" Deleted Successfully")
     })
   }
 
