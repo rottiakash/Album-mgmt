@@ -8,6 +8,7 @@ import { AdminSongsComponent } from './admin-songs/admin-songs.component';
 import { AdminAlbumsComponent } from './admin-albums/admin-albums.component';
 import { MatFormFieldModule, MatTableModule, MatPaginatorModule, MatInputModule } from '@angular/material';
 import { FormsModule } from '@angular/forms';
+import {MatTabsModule} from '@angular/material/tabs';
 
 
 @NgModule({
@@ -20,6 +21,7 @@ import { FormsModule } from '@angular/forms';
     MatPaginatorModule,
     MatInputModule,
     FormsModule,
+    MatTabsModule
   ]
 })
 export class AdminModule { }

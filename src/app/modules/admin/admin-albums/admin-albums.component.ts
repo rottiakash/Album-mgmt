@@ -42,8 +42,14 @@ export class AdminAlbumsComponent implements OnInit {
     console.log(this.aid);
 
     this.http.get("http://127.0.0.1:5000/insertAlbum/"+this.aid+"/"+this.alname+"/"+this.alabel+"/"+this.streams,{observe:'response'}).subscribe(response=>{
-      window.alert("Album Added Successfully");
+      this.http.get<Album[]>('http://127.0.0.1:5000/getAlbums').subscribe(data=>{
+        this.dataSource = new MatTableDataSource(data);
+        console.log(this.dataSource)
+        this.dataSource.paginator = this.paginator;
+      }) ;
+    window.alert("Album Added Successfully");
       this.show = false;
+      
     })
   }
 
@@ -51,8 +57,13 @@ export class AdminAlbumsComponent implements OnInit {
   {
     console.log(album.name)
     this.http.get("http://127.0.0.1:5000/deleteAlbum/"+album.alid, {observe:'response'}).subscribe(response=>{
+      this.http.get<Album[]>('http://127.0.0.1:5000/getAlbums').subscribe(data=>{
+      this.dataSource = new MatTableDataSource(data);
+      console.log(this.dataSource)
+      this.dataSource.paginator = this.paginator;
+    });
       window.alert(album.name+" Deleted Successfully")
     })
   }
-
+  
 }

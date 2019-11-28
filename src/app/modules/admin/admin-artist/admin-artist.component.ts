@@ -41,7 +41,11 @@ displayedColumns: string[];
     console.log(this.ctry);
 
     this.http.get("http://127.0.0.1:5000/insertArtist/"+this.aname+"/"+this.ctry+"/"+this.copies, {observe:'response'}).subscribe(response=>{
-      window.alert("Artist Added Successfully");
+      this.http.get<Artist[]>('http://127.0.0.1:5000/getArtists').subscribe(data=>{
+        this.dataSource = new MatTableDataSource(data);
+        this.dataSource.paginator = this.paginator;
+      });  
+    window.alert("Artist Added Successfully");
       this.router.navigateByUrl('/admin/artist')
       this.show = false;
     })
@@ -51,7 +55,11 @@ displayedColumns: string[];
   {
     console.log(artist.name);
     this.http.get("http://127.0.0.1:5000/deleteArtist/"+artist.aid,{observe : 'response'}).subscribe(response=>{
-      window.alert(artist.name+" Deleted Successfully")
+      this.http.get<Artist[]>('http://127.0.0.1:5000/getArtists').subscribe(data=>{
+        this.dataSource = new MatTableDataSource(data);
+        this.dataSource.paginator = this.paginator;
+      });  
+    window.alert(artist.name+" Deleted Successfully")
     })
   }
 

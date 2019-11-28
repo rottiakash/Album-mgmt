@@ -1,8 +1,12 @@
-<nav class="navbar navbar-dark bg-primary" style="position: relative;;top: 10px;width: 100%;">
-    <!-- Navbar content -->
-    <a class="navbar-brand" routerLink="/admin/albums">Albums</a>
-    <a class="navbar-brand" routerLink="/admin/songs">Songs</a>
-    <a class="navbar-brand" routerLink="/admin/artist">Artist</a>
-
-  </nav>
-<router-outlet></router-outlet>
+<nav mat-tab-nav-bar style="background-color: aqua;">
+  <a mat-tab-link style="text-decoration:none; color:inherit;"
+     *ngFor="let link of navLinks"
+     [routerLink]="link.path"
+     routerLinkActive #rla="routerLinkActive"
+     [active]="rla.isActive">
+    {{link.label}}
+  </a>
+</nav>
+<main [@routerTransition]="getState(o)">
+<router-outlet #o="outlet"></router-outlet>
+</main>

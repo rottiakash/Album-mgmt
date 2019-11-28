@@ -41,7 +41,13 @@ export class AdminSongsComponent implements OnInit {
     console.log(this.genre);
 
     this.http.get("http://127.0.0.1:5000/insertSong/"+this.alid+"/"+this.genre+"/"+this.mpro+"/"+this.sname, {observe:'response'}).subscribe(response=>{
-      window.alert("Song Added Successfully");
+      this.http.get<Song[]>('http://127.0.0.1:5000/getSongs').subscribe(data=>{
+        console.log(data);
+        this.dataSource = new MatTableDataSource(data);
+        console.log(this.dataSource)
+        this.dataSource.paginator = this.paginator;
+      })  
+    window.alert("Song Added Successfully");
       this.show = false;
     })
   }
@@ -50,7 +56,13 @@ export class AdminSongsComponent implements OnInit {
   {
     console.log(song.name)
     this.http.get("http://127.0.0.1:5000/deleteSong/"+song.sid,{observe:'response'}).subscribe(response=>{
-      window.alert(song.name+" Deleted Successfully");
+      this.http.get<Song[]>('http://127.0.0.1:5000/getSongs').subscribe(data=>{
+        console.log(data);
+        this.dataSource = new MatTableDataSource(data);
+        console.log(this.dataSource)
+        this.dataSource.paginator = this.paginator;
+      })  
+    window.alert(song.name+" Deleted Successfully");
     })
   }
 

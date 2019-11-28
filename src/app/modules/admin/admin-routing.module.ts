@@ -8,10 +8,10 @@ import { AdminArtistComponent } from './admin-artist/admin-artist.component';
 
 const routes: Routes = [
   {path:"",component:LandingComponent,children:[
-    {path:"",redirectTo:"albums",pathMatch:"full"},
-    {path:"albums",component:AdminAlbumsComponent},
-    {path:"songs",component:AdminSongsComponent},
-    {path:"artist",component:AdminArtistComponent}
+    {path:"",redirectTo:"artist",pathMatch:"full"},
+    {path:"albums",component:AdminAlbumsComponent,data: { state: 2}},
+    {path:"songs",component:AdminSongsComponent,data: { state: 3}},
+    {path:"artist",component:AdminArtistComponent,data: { state: 1}}
   ]}
 ];
 
