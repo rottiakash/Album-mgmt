@@ -19,6 +19,8 @@ import { MatFormFieldModule, MatTableModule, MatPaginatorModule, MatInputModule 
 import { ArtistViewComponent } from './components/artist-view/artist-view.component';
 import { AlbumViewComponent } from './components/album-view/album-view.component';
 import { LoginComponent } from './components/login/login.component';
+import { FavComponent } from './components/fav/fav.component';
+import { AngularFireAuthGuard } from '@angular/fire/auth-guard';
 
 @NgModule({
   declarations: [
@@ -27,7 +29,8 @@ import { LoginComponent } from './components/login/login.component';
     SearchComponent,
     ArtistViewComponent,
     AlbumViewComponent,
-    LoginComponent
+    LoginComponent,
+    FavComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +50,7 @@ import { LoginComponent } from './components/login/login.component';
     MatFormFieldModule,
     MatPaginatorModule
   ],
-  providers: [],
+  providers: [AngularFireAuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

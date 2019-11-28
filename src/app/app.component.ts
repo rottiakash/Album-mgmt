@@ -13,6 +13,5 @@ export class AppComponent {
   logout()
   {
     this.afAuth.auth.signOut();
-    this.router.navigateByUrl('/home');
-  }
+    window.location.replace("http://localhost:4200/home");  }
 }
